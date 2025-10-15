@@ -1,39 +1,46 @@
-#To-Do List program
+# To-Do List program
+
 while True:
     try:
+        user_answer = input("Do you want to add a new To-Do item? answer by (y) for yes and (n) for no or type exit: ").strip().lower()
 
-        user_answer = input("do you want to add a new To-Do item? answer by (y) for yes and (n) for no or exit.: ").strip().lower()
         if user_answer == "exit":
-            print("thank you for using the To-Do program, come back again soon")
+            print("Thank you for using the To-Do program, come back again soon")
             break
-        elif user_answer == "y":
-            file = open("to_do.txt", "a+", encoding="UTF-8")
-            to_do = input("Type the tasks you want to do.: ")
-            file.write(to_do + "\n")
-            file.close()
 
-        elif user_answer =="n":
-            answer = input("do you want to list your To-Do items? answer (y) for yes and (n) for no.").strip().lower()
+        elif user_answer == "y":
+            to_do = input("Type the task you want to add: ").strip()   
+            if not to_do:
+                print("Empty task was ignored.")
+                continue
+
+            with open("to_do.txt", "a", encoding="utf-8") as f:
+                f.write(to_do + "\n")
+            print("Task added ")
+
+        elif user_answer == "n":
+            answer = input("Do you want to list your To-Do items? answer (y) for yes and (n) for no: ").strip().lower()
+
             if answer == "y":
-                file = open("to_do.txt", "r", encoding="utf-8")
-                content = file.readlines()
-                for item in content:
-                    print(item.strip())
-                file.close()
+                with open("to_do.txt", "r", encoding="utf-8") as f:
+                    content = f.readlines()
+            
+                if not content:
+                    print("Your list is empty.")
+
+                else:
+                    print("Your To-Do items:")
+                    for item in content:
+                        print("- " + item.strip())
 
             elif answer == "n":
                 continue
 
             else:
-                raise TypeError("Please enter either (Y) for yes or (n) for no")
+                print("Please enter either (y) for yes or (n) for no")
+
         else:
-            raise TypeError("Please enter either (Y) for yes or (n) for no or exit ")
-        
-    except TypeError as e:
-        print(e)
+            print("Please enter either (y) for yes, (n) for no, or exit")
+
     except Exception as e:
-        print(e)
-
-
-
-        
+        print("Error:", e)

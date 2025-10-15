@@ -4,7 +4,6 @@ import os
 
 filename = "to_do.json"
 
-# نحمل المهام من الملف (لو موجود) وإلا نبدأ بقائمة فاضية
 if os.path.exists(filename):
     with open(filename, "r", encoding="utf-8") as f:
         tasks = json.load(f)
@@ -19,14 +18,14 @@ while True:
             print("Thank you for using the To-Do program, come back again soon")
             break
 
-        elif user_answer == "add":   # إضافة مهمة
+        elif user_answer == "add":  
             title = input("Enter task title: ").strip()
             date_time = input("Enter date & time (YYYY-MM-DD HH:MM:SS): ").strip()
 
             task = {
                 "title": title,
                 "datetime": date_time,
-                "done": False   # افتراضيًا False
+                "done": False  
             }
             tasks.append(task)
 
@@ -35,7 +34,7 @@ while True:
 
             print("Task added ✅")
 
-        elif user_answer == "list":   # عرض المهام
+        elif user_answer == "list": 
             if not tasks:
                 print("Your list is empty.")
             else:
@@ -43,7 +42,7 @@ while True:
                     status = "DONE" if t["done"] else "NOT DONE"
                     print(f"{i}- {t['title']} - {t['datetime']} - {status}")
 
-        elif user_answer == "done":   # تعليم مهمة كـ DONE
+        elif user_answer == "done":   
             if not tasks:
                 print("No tasks to mark.")
                 continue
@@ -64,7 +63,7 @@ while True:
             except ValueError:
                 print("Please enter a valid number.")
 
-        elif user_answer == "search":   # البحث عن مهمة
+        elif user_answer == "search":  
             keyword = input("Enter keyword to search in titles: ").lower()
             found = False
             for i, t in enumerate(tasks, start=1):
